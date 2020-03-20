@@ -30,20 +30,34 @@ var urlmongo =
 
 mongoose.connect(urlmongo)
 
+const Schema = require('mongoose')
+
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'Erreur lors de la connexion'))
 db.once('open', function() {
   console.log('Bien connecté à Atlas !')
 })
 
-// var userSchema = mongoose.Schema({
-//   username: String,
+var userSchema = mongoose.Schema({
+  _groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
+  username: String,
+  email: String,
+  password: String,
+  favoriteTeam: String
+})
 
-// })
+var User = mongoose.model('User', userSchema)
 
-// var User = mongoose.model('User', userSchema)
+var groupSchema = mongoose.Schema({
+  _users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  name: String,
+  code: String
+})
+
+var Group = mongoose.model('Group', groupSchema)
 
 var matchSchema = mongoose.Schema({
+  idApi: String,
   dom: String,
   logoDom: String,
   scoreDom: Number,
@@ -60,8 +74,108 @@ var matchSchema = mongoose.Schema({
 
 var Match = mongoose.model('Match', matchSchema)
 
+app.route('/match').get(function(req, res) {
+  Match.find(function(err, matchs) {
+    if (err) {
+      res.send(err)
+    }
+    res.json(matchs)
+  })
+})
+
+app.route('/inscription').post(async function(req, res, next) {
+  const bcrypt = require('bcrypt')
+  if (
+    req.body &&
+    req.body.username &&
+    req.body.password &&
+    req.body.email &&
+    req.body.favoriteTeam
+  ) {
+    const user = new User()
+    user.username = req.body.username
+    user.email = req.body.email
+    user.favoriteTeam = req.body.favoriteTeam
+    const hash = await bcrypt.hash(req.body.password, 10)
+    user.password = hash
+    let group = null
+    if (req.body.group !== null || req.body.group !== null) {
+      group = Group.find({ code: req.body.group })
+        .select('_users')
+        .exec()
+      if (!group) {
+        return next({
+          status: 404,
+          message: "Il n'y a pas de groupe qui correspond à ce code"
+        })
+      }
+      user.group = group._id
+    }
+    user.save()
+  } else {
+    return next({
+      status: 404,
+      message:
+        'Il manque des informations pour pouvoir inscrire cet utilisateur.'
+    })
+  }
+})
+
+app.route('/login').post(async function(req, res, next) {
+  const bcrypt = require('bcrypt')
+  if (req.body && req.body.password && req.body.email) {
+    const user = User.find({ email: req.body.email }).exec()
+    const match = await bcrypt.compare(req.body.password, user.password)
+    if (!match) {
+      return next({
+        status: 400,
+        message: 'Erreur de mot de passe'
+      })
+    }
+    res.send({ id: user._id })
+  } else {
+    return next({
+      status: 400,
+      message: 'Il faut un email et un mot de passe'
+    })
+  }
+})
+
 app
-  .route('/match')
+  .route('/user/:id')
+  .get(function(req, res, next) {
+    if (req.params && req.params.id) {
+      User.findById(req.params.id, function(err, user) {
+        if (err) {
+          res.send(err)
+        }
+        res.json(user)
+      })
+    } else {
+      return next({
+        status: 400,
+        message: "Il faut l'id de l'user"
+      })
+    }
+  })
+  .update(function(req, res, next) {
+    if (req.params && req.params.id && req.body) {
+      User.updateOne({ _id: req.params.id }, req.body, function(err, user) {
+        if (err) {
+          res.send(err)
+        }
+        res.json(user)
+      })
+    } else {
+      return next({
+        status: 400,
+        message: "Il manque l'id ou des infos pour modifier le user"
+      })
+    }
+  })
+
+app
+  .route('/group')
   .get(function(req, res) {
     Match.find(function(err, matchs) {
       if (err) {
@@ -70,7 +184,21 @@ app
       res.json(matchs)
     })
   })
-  .post(function(req, res) {})
+  .post(function(req, res, next) {
+    if (req.body && req.body.name) {
+      const group = new Group()
+      group.name = req.body.name
+      group.code = Math.random()
+        .toString(36)
+        .substring(7)
+      group.save()
+    } else {
+      return next({
+        status: 400,
+        message: 'Il manque le nom du groupe'
+      })
+    }
+  })
 
 app.post('/loadDataMatches', async function(req, res, next) {
   axios
@@ -80,6 +208,7 @@ app.post('/loadDataMatches', async function(req, res, next) {
     .then(response => {
       response.data.forEach(async m => {
         var match = new Match()
+        match.idApi = m.match_id
         match.dom = m.match_hometeam_name
         match.logoDom = m.team_home_badge
         match.scoreDom = m.match_hometeam_score
