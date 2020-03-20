@@ -7,6 +7,7 @@ import CharactersDetails from '../screens/charactersDetails'
 import Ranking from '../screens/ranking'
 import Timers from '../screens/timers'
 import Todos from '../screens/todos'
+import Register from '../screens/register'
 
 import {
   Route,
@@ -26,6 +27,7 @@ const Routes = () => {
         <Route path='/ranking' component={Ranking}></Route>
         <Route path='/timers' component={Timers}></Route>
         <Route path='/todos' component={Todos}></Route>
+        <Route path='/register' component={Register}></Route>
         <Redirect to='/' />
       </Switch>
     </Router>
