@@ -3,24 +3,22 @@ import styled from 'styled-components'
 import logo from './logo.png'
 import { FaPowerOff, FaUserCircle } from 'react-icons/fa'
 
-class Navbar extends Component {
-  render() {
-    return (
-      <NavBar>
-        <a href='#!'>
-          <Logo src={logo}></Logo>
-        </a>
-        <DivLinks>
-          <LinkIcons href='#!'>
-            <FaPowerOff />
-          </LinkIcons>
-          <LinkIcons href='#!'>
-            <FaUserCircle />
-          </LinkIcons>
-        </DivLinks>
-      </NavBar>
-    )
-  }
+const Navbar = () => {
+  return (
+    <NavBar>
+      <a href='#!'>
+        <Logo src={logo}></Logo>
+      </a>
+      <DivLinks>
+        <LinkIcons href='#!'>
+          <FaPowerOff />
+        </LinkIcons>
+        <LinkIcons href='#!'>
+          <FaUserCircle />
+        </LinkIcons>
+      </DivLinks>
+    </NavBar>
+  )
 }
 
 const NavBar = styled.div`

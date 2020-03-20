@@ -1,32 +1,30 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-class Register extends Component {
-  render() {
-    return (
-      <RegisterDiv>
-        <h3>Inscription</h3>
-        <RegisterInputDiv>
-          <RegisterInput placeholder='username'></RegisterInput>
-        </RegisterInputDiv>
-        <RegisterInputDiv>
-          <RegisterInput placeholder='email'></RegisterInput>
-        </RegisterInputDiv>
-        <RegisterInputDiv>
-          <RegisterInput placeholder='password'></RegisterInput>
-        </RegisterInputDiv>
-        <RegisterInputDiv>
-          <RegisterInput placeholder='group'></RegisterInput>
-        </RegisterInputDiv>
-        <RegisterInputDiv>
-          <RegisterInput placeholder='favoriteTeam'></RegisterInput>
-        </RegisterInputDiv>
-        <RegisterInputDiv>
-          <RegisterButton>Enregistrer</RegisterButton>
-        </RegisterInputDiv>
-      </RegisterDiv>
-    )
-  }
+const Register = () => {
+  return (
+    <RegisterDiv>
+      <h3>Inscription</h3>
+      <RegisterInputDiv>
+        <RegisterInput placeholder='username'></RegisterInput>
+      </RegisterInputDiv>
+      <RegisterInputDiv>
+        <RegisterInput placeholder='email'></RegisterInput>
+      </RegisterInputDiv>
+      <RegisterInputDiv>
+        <RegisterInput placeholder='password'></RegisterInput>
+      </RegisterInputDiv>
+      <RegisterInputDiv>
+        <RegisterInput placeholder='group'></RegisterInput>
+      </RegisterInputDiv>
+      <RegisterInputDiv>
+        <RegisterInput placeholder='favoriteTeam'></RegisterInput>
+      </RegisterInputDiv>
+      <RegisterInputDiv>
+        <RegisterButton>Enregistrer</RegisterButton>
+      </RegisterInputDiv>
+    </RegisterDiv>
+  )
 }
 
 const RegisterDiv = styled.div`
@@ -35,7 +33,6 @@ const RegisterDiv = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 2% 5%;
-  max-width: 20%;
   border-radius: 5px;
   box-shadow: 2px 2px 5px 2px #008ad440;
   text-align: center;

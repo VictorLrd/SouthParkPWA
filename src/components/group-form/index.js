@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-const Login = () => {
+const GroupForm = () => {
   return (
-    <LoginDiv>
-      <h3>Connexion</h3>
-      <LoginInputDiv>
-        <LoginInput placeholder='email'></LoginInput>
-      </LoginInputDiv>
-      <LoginInputDiv>
-        <LoginInput placeholder='password'></LoginInput>
-      </LoginInputDiv>
-      <LoginInputDiv>
-        <LoginButton>Valider</LoginButton>
-      </LoginInputDiv>
-    </LoginDiv>
+    <FormDiv>
+      <h3>Création de groupe</h3>
+      <FormInputDiv>
+        <FormInput placeholder='groupname'></FormInput>
+      </FormInputDiv>
+      <FormInputDiv>
+        <FormInput placeholder='minbet'></FormInput>
+      </FormInputDiv>
+      <FormInputDiv>
+        <FormButton>Créer</FormButton>
+      </FormInputDiv>
+    </FormDiv>
   )
 }
-
-const LoginDiv = styled.div`
+const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -30,14 +29,14 @@ const LoginDiv = styled.div`
   margin-top: 3em;
 `
 
-const LoginInputDiv = styled.div`
+const FormInputDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   margin: 0.5em 0;
 `
-const LoginInput = styled.input`
+const FormInput = styled.input`
   display: block;
   width: 100%;
   height: 40px;
@@ -48,7 +47,7 @@ const LoginInput = styled.input`
   padding: 0px 1em;
 `
 
-const LoginButton = styled.button`
+const FormButton = styled.button`
   display: block;
   width: 50%;
   height: 40px;
@@ -60,4 +59,5 @@ const LoginButton = styled.button`
   background-color: #008ad499;
   color: #ffffff;
 `
-export default Login
+
+export default GroupForm
