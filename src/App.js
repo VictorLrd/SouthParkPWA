@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import { store, persistor } from './config/store'
 import { themeLight, themeDark } from './config/theme'
 import { PersistGate } from 'redux-persist/integration/react'
-
+import Navbar from './components/navbar'
 import './App.css'
 import './config/translations'
 
@@ -24,6 +24,7 @@ function App() {
   })
   return (
     <Provider store={store}>
+      <Navbar></Navbar>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={currentTheme}>
           <Routes></Routes>
