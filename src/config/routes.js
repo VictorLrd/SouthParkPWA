@@ -15,6 +15,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom'
+import Matchs from '../screens/matchs'
 
 const Routes = () => {
   return (
@@ -27,6 +28,7 @@ const Routes = () => {
         <Route path='/ranking' component={Ranking}></Route>
         <Route path='/timers' component={Timers}></Route>
         <Route path='/todos' component={Todos}></Route>
+        <Route path='/list-match' component={Matchs}></Route>
         <Route path='/register' component={Register}></Route>
         <Redirect to='/' />
       </Switch>
