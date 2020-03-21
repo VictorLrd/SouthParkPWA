@@ -51,7 +51,8 @@ var User = mongoose.model('User', userSchema)
 var groupSchema = mongoose.Schema({
   _users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   name: String,
-  code: String
+  code: String,
+  mise: String
 })
 
 var Group = mongoose.model('Group', groupSchema)
