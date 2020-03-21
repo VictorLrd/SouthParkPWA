@@ -159,7 +159,7 @@ app
       })
     }
   })
-  .update(function(req, res, next) {
+  .post(function(req, res, next) {
     if (req.params && req.params.id && req.body) {
       User.updateOne({ _id: req.params.id }, req.body, function(err, user) {
         if (err) {
