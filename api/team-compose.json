@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "myteamcompose",
+  "private_key_id": "7f54bee13d63b4da1faa4cc0eb68aef67b17d75f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDHxC2Y2s5pt0Oa\nC8LXzVDtsfwyMyC5Zdy4oQVWtMi6oJQhrfaCqg8uVHcWUgxQgfnTWG9XmxkAT3wH\nx38lxAul1xSqlrw20qNAf9w/66uiW7rWXsdgqwxk0ifsQC1gH+tjv+dnbw7sIWpI\n7tnoELUwfpl5NHcK0LI8p+6fnR1x2H9AYcXQbNJaDMFTl+YnsEESjFRQnSwNjeWg\nKD9Djtux2ufOosBe5dMCvzzcFBnwSqpMKR0jqTxwEgzaqZUF0UCFQEZExeYfPsQp\nsRxB8CkZNx1HCvwUVnfmfVxiYBl/BTzRAyd1tdOfSlaWFVdcblll3R6XzA/bYMuO\nXxjmEOAnAgMBAAECggEAP9kVY8YHdCV1b15z84p1Y8tf2mGaA3epoL8iWDCm+XNK\ndStHX0LgYEPx3gnyUqcARMr+p0b0qjM9ZrUeD+GFgYdpXQ6ZcIJJWFuldy6paFae\nNFcNrXluGClNRkbK2e7JytNysA4AfHs/n7jrn677YlkMT39zztqeJSHddFmAqDpj\n/k5GVzpeA9B7TXuvXNavTA5XyBahT/SVernyctOFXwU+wzWdzMEG93hcYGWHBOAe\ncoq2dRkYyRabjCEwEcVvmGYp+VfqZaRRyAgbVC/TZ8aCTr4IrbQEb0PYMsnqImn0\nbBgYI8JGTDrgyjKim/qhkKv8jbrDLNHkTW3UvuWmgQKBgQDjN8UfLcthZ/kQesTZ\nY93ZJ5VjowE93kWwYXefkjR89FoveBIMToJlaUQIP3aF7QkXibZ81t4+S5/xurHI\neiiL7VWu9ANAlQpUDgn1qLd42iqcyMm8mJm4W3XreyxgkNRC1/vJhNF8TeUzUzNt\nz+HZQsRfo5x1vE59I02su8PZgQKBgQDhEjVudvdkkBo3OVnRyHvegE4NOoswIaf+\n5D6q13drHseBEpPxJjMxXYe/K9E9bg2SjlIUfK7DIlhMYZU6sX2uTrMbRBmf+nOb\nNAfCGkxQs90yeTQDUD6KQN77WRHFjST+w1bK1+ybunZNgRwW65yYijplNso044VY\ny+w2MRp9pwKBgQCBZkJ5ti/MQlVCgFhY4Zn3UKawPqW3YT1Y7LkehDomK1atD/lf\nTtrN/DwFYncSYGK8J+5ofEnHOnRVSxhybrdmsPwKDedIQVjHc9NSNwp95ek8rtDM\n+i8ZIeUu/U/Rksl/Y9d99YkD/KyaJTj1wd0CSRbizJ+PIXWlqJRU2f34gQKBgBeI\nE9YM0ijNeDA16tIoJ+tHduGjMVJC8pGPw42RIYctnKY+DwGzgL60jLDMIABQNVMR\nVjuWHZ+BQ8IYocWVMRK8X7WGFTfIs7WSZw1AOqJla8cPLQT7qs5Bog6dbWI+M5P/\nUF+825wcjqnjydALqj+4lAppBBMrhpGWIIg58g8ZAoGBAIXySq5j9Izthvmxoisz\n8El28OPcUUtrmplKqOjAzclITIKG+e+46U7Iyyr+AnyIuv/m4vFM+v2jcgHG2CQ9\naF3NATUTsyt+N/il3Y38Qf1CXZMEflOtTFQ3gBeueG+Ykd+a34lyJKzOpffvZepw\n5sUoDu+dJ9pSemBfxPmsrz26\n-----END PRIVATE KEY-----\n",
+  "client_email": "team-compose@myteamcompose.iam.gserviceaccount.com",
+  "client_id": "112547400701657604078",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/team-compose%40myteamcompose.iam.gserviceaccount.com"
+}
