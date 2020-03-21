@@ -16,6 +16,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import Matchs from '../screens/matchs'
+import Pronos from '../screens/prono'
 
 const Routes = () => {
   return (
@@ -29,6 +30,7 @@ const Routes = () => {
         <Route path='/timers' component={Timers}></Route>
         <Route path='/todos' component={Todos}></Route>
         <Route path='/list-match' component={Matchs}></Route>
+        <Route path='/list-match-prono' component={Pronos}></Route>
         <Route path='/register' component={Register}></Route>
         <Redirect to='/' />
       </Switch>
