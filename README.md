@@ -1,5 +1,27 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## FONCTIONNALITES
+
+Fonctionnalité:
+- Connexion
+- création de compte
+- page profil
+- club favori (2 fois plus de point)
+- Création de groupe (partage de code entre amis)
+- Celui qui crée le groupe choisi la League sur laquelle il souhaite faire ces pronostiques;
+- pronostic sur les 10 match de la journée du championnat sélectionné( score )
+- le nombre de point vari selon équipe sur laquelle l'utilisateur mise;
+- fin des paris avant le début du premier match de la journée
+- notification de fin de journée
+- résultat à la fin du dernier match de la journée;
+- résultat stat
+- trophée de résultat
+- stat sur le profil
+
+gain:
+- mise a l'enté du groupe (simple value - le gagnant prend 60%, le 2e 30% et l'entreprise récupère 10%)
+- boost ( si l'équipe gagne tu prends des points supplémentaire)
+
 ## Available Scripts
 
 In the project directory, you can run:
