@@ -1,21 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
-import Login from '../components/login'
+import Register from '../components/register'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { useHistory } from 'react-router-dom'
 
 import allTheActions from '../actions'
 
-const LoginScreen = props => {
-  const history = useHistory()
-  const login = (e, form) => {
+const RegisterScreen = props => {
+  const register = (e, form) => {
+    console.log(form)
     e.preventDefault()
-    props.actions.user.loginCall(form.username, form.password, history)
+    props.actions.user.registerCall(form)
   }
   return (
     <Container>
-      <Login submit={login}></Login>
+      <Register submit={register}></Register>
     </Container>
   )
 }
@@ -34,4 +33,4 @@ const mapDispatchToProps = () => dispatch => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(LoginScreen)
+export default connect(null, mapDispatchToProps)(RegisterScreen)

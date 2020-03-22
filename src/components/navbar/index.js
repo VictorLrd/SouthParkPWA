@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FaPowerOff, FaUserCircle } from 'react-icons/fa'
 import i18next from 'i18next'
 import { withTranslation } from 'react-i18next'
+import Logout from '../logout'
 
 const Navbar = ({ t }) => {
   return (
@@ -12,7 +13,7 @@ const Navbar = ({ t }) => {
       </a>
       <DivLinks>
         <LinkIcons href='#!'>
-          <FaPowerOff />
+          <Logout />
         </LinkIcons>
         <LinkIcons href='#!'>
           <FaUserCircle />
@@ -61,4 +62,5 @@ const Flag = styled.img`
 const Slogan = styled.p`
   margin-right: 50px;
 `
+
 export default withTranslation()(Navbar)

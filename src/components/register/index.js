@@ -1,33 +1,114 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const Register = () => {
+const Register = ({ submit }) => {
+  const [form, setForm] = useState({
+    username: '',
+    password: '',
+    email: '',
+    group: '',
+    favoriteTeam: '',
+    isError: false,
+    isErrorMessage: ''
+  })
   return (
-    <RegisterDiv>
+    <RegisterDiv onSubmit={e => submit(e, form)}>
       <h3>Inscription</h3>
       <RegisterInputDiv>
-        <RegisterInput placeholder='username'></RegisterInput>
+        <RegisterInput
+          name='username'
+          placeholder='Votre username'
+          onChange={e => setForm({ ...form, username: e.target.value })}
+          type='text'
+          onBlur={() =>
+            form.username.length < 6
+              ? setForm({
+                  ...form,
+                  isError: true,
+                  isErrorMessage: 'Votre nom doit faire plus de 6 caractères.'
+                })
+              : setForm({ ...form, isError: false })
+          }
+        ></RegisterInput>
       </RegisterInputDiv>
       <RegisterInputDiv>
-        <RegisterInput placeholder='email'></RegisterInput>
+        <RegisterInput
+          name='email'
+          placeholder='Votre email'
+          onChange={e => setForm({ ...form, email: e.target.value })}
+          type='email'
+          onBlur={() =>
+            form.email.length < 10
+              ? setForm({
+                  ...form,
+                  isError: true,
+                  isErrorMessage: "Votre email n'est pas bon"
+                })
+              : setForm({ ...form, isError: false })
+          }
+        ></RegisterInput>
       </RegisterInputDiv>
       <RegisterInputDiv>
-        <RegisterInput placeholder='password'></RegisterInput>
+        <RegisterInput
+          name='password'
+          placeholder='Votre mot de passe'
+          onChange={e => setForm({ ...form, password: e.target.value })}
+          type='password'
+          onBlur={() =>
+            form.password.length < 6
+              ? setForm({
+                  ...form,
+                  isError: true,
+                  isErrorMessage: "Votre email n'est pas bon"
+                })
+              : setForm({ ...form, isError: false })
+          }
+        ></RegisterInput>
       </RegisterInputDiv>
       <RegisterInputDiv>
-        <RegisterInput placeholder='group'></RegisterInput>
+        <RegisterInput
+          name='group'
+          placeholder='Votre code de groupe'
+          onChange={e => setForm({ ...form, group: e.target.value })}
+          type='text'
+          onBlur={() =>
+            form.group.length < 5
+              ? setForm({
+                  ...form,
+                  isError: true,
+                  isErrorMessage: "Votre groupe n'est pas bon"
+                })
+              : setForm({ ...form, isError: false })
+          }
+        ></RegisterInput>
       </RegisterInputDiv>
       <RegisterInputDiv>
-        <RegisterInput placeholder='favoriteTeam'></RegisterInput>
+        <RegisterInput
+          name='favoriteTeam'
+          placeholder='Votre équipe favorite'
+          onChange={e => setForm({ ...form, favoriteTeam: e.target.value })}
+          type='text'
+          onBlur={() =>
+            form.favoriteTeam.length < 5
+              ? setForm({
+                  ...form,
+                  isError: true,
+                  isErrorMessage: "Votre équipe n'est pas bonne."
+                })
+              : setForm({ ...form, isError: false })
+          }
+        ></RegisterInput>
       </RegisterInputDiv>
       <RegisterInputDiv>
-        <RegisterButton>Enregistrer</RegisterButton>
+        <RegisterButton disabled={form.isError} type='submit'>
+          Enregistrer
+        </RegisterButton>
       </RegisterInputDiv>
     </RegisterDiv>
   )
 }
 
-const RegisterDiv = styled.div`
+const RegisterDiv = styled.form`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
