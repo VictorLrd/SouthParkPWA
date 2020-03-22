@@ -39,7 +39,7 @@ db.once('open', function() {
 })
 
 var userSchema = mongoose.Schema({
-  _groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
+  _group: { type: Schema.Types.ObjectId, ref: 'Group' },
   username: String,
   email: String,
   password: String,
@@ -84,8 +84,9 @@ app.route('/match').get(function(req, res) {
   })
 })
 
-app.route('/inscription').post(async function(req, res, next) {
+app.route('/register').post(async function(req, res, next) {
   const bcrypt = require('bcrypt')
+  console.log('group', req.body)
   if (
     req.body &&
     req.body.username &&
@@ -100,19 +101,21 @@ app.route('/inscription').post(async function(req, res, next) {
     const hash = await bcrypt.hash(req.body.password, 10)
     user.password = hash
     let group = null
-    if (req.body.group !== null || req.body.group !== null) {
-      group = Group.find({ code: req.body.group })
-        .select('_users')
+    if (req.body.group !== null || req.body.group !== '') {
+      group = await Group.findOne({ code: req.body.group })
+        .select('name')
         .exec()
+      console.log('group', group)
       if (!group) {
         return next({
           status: 404,
           message: "Il n'y a pas de groupe qui correspond à ce code"
         })
       }
-      user.group = group._id
+      user._group = group._id
     }
     user.save()
+    res.send({ user: user._id })
   } else {
     return next({
       status: 404,
@@ -124,16 +127,23 @@ app.route('/inscription').post(async function(req, res, next) {
 
 app.route('/login').post(async function(req, res, next) {
   const bcrypt = require('bcrypt')
-  if (req.body && req.body.password && req.body.email) {
-    const user = User.find({ email: req.body.email }).exec()
-    const match = await bcrypt.compare(req.body.password, user.password)
-    if (!match) {
+  if (req.body && req.body.password && req.body.username) {
+    const user = await User.findOne({ username: req.body.username }).exec()
+    if (user) {
+      const match = await bcrypt.compare(req.body.password, user.password)
+      if (!match) {
+        return next({
+          status: 400,
+          message: 'Erreur de mot de passe'
+        })
+      }
+      res.send({ id: user._id })
+    } else {
       return next({
         status: 400,
-        message: 'Erreur de mot de passe'
+        message: "Pas d'utilisateur avec ce username"
       })
     }
-    res.send({ id: user._id })
   } else {
     return next({
       status: 400,
@@ -178,11 +188,11 @@ app
 app
   .route('/group')
   .get(function(req, res) {
-    Match.find(function(err, matchs) {
+    Group.find(function(err, groups) {
       if (err) {
         res.send(err)
       }
-      res.json(matchs)
+      res.json(groups)
     })
   })
   .post(function(req, res, next) {
