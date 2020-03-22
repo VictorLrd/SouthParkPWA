@@ -16,7 +16,7 @@ export const dispatchRegister = payload => ({
 
 export const loginCall = (username, password, history) => dispatch => {
   axios
-    .post('http://localhost:3456/login', { username, password })
+    .post('http://51.254.118.15:3456:3456/login', { username, password })
     .then(
       res => {
         localStorage.setItem('user', JSON.stringify(res.data.id))
@@ -40,7 +40,7 @@ export const registerCall = ({
   email
 }) => dispatch => {
   axios
-    .post('http://localhost:3456/register', {
+    .post('http://51.254.118.15:3456:3456/register', {
       username,
       password,
       group,
