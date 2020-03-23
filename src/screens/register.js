@@ -4,7 +4,7 @@ import Login from '../components/login'
 import Register from '../components/register'
 import GroupForm from '../components/group-form'
 
-const componentName = () => {
+const Register = () => {
   return (
     <Container>
       <Login></Login>
@@ -23,4 +23,4 @@ const Container = styled.div`
   color: grey;
 `
 
-export default componentName
+export default Register
