@@ -15,6 +15,7 @@ import PublicRoute from '../config/PublicRoute'
 import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom'
 import Matchs from '../screens/matchs'
 import Pronos from '../screens/prono'
+// import Profil from '../screens/profil'
 import LoginScreen from '../screens/loginScreen'
 import registerScreen from '../screens/registerScreen'
 
