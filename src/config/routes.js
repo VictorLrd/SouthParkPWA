@@ -1,13 +1,13 @@
 import React from 'react'
 
-import Login from '../screens/login'
+import Login from '../screens/login2'
 import Animation from '../screens/animation'
 import Characters from '../screens/characters'
 import CharactersDetails from '../screens/charactersDetails'
 import Ranking from '../screens/ranking'
 import Timers from '../screens/timers'
 import Todos from '../screens/todos'
-import Register from '../screens/register'
+import MatchRedux from '../screens/matchRedux'
 
 import PrivateRoute from '../config/PrivateRoute'
 import PublicRoute from '../config/PublicRoute'
@@ -48,7 +48,7 @@ const Routes = () => {
         <Route path='/todos' component={Todos}></Route>
         <Route path='/list-match' component={Matchs}></Route>
         <Route path='/list-match-prono' component={Pronos}></Route>
-        <Route path='/register' component={Register}></Route>
+        {/* <Route path='/register' component={Register}></Route> */}
         <Redirect to='/' />
       </Switch>
     </BrowserRouter>

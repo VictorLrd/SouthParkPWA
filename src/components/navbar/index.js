@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import logo from './logo.png'
 import { FaPowerOff, FaUserCircle } from 'react-icons/fa'
 import i18next from 'i18next'
 import { withTranslation } from 'react-i18next'
 import Logout from '../logout'
 
-const Navbar = () => {
+const Navbar = ({ t }) => {
   return (
     <NavBar>
-      <a href='#!'>
-        <Logo src={logo}></Logo>
+      <a href='/'>
+        <Logo src='logo.png'></Logo>
       </a>
       <DivLinks>
         <LinkIcons href='#!'>
@@ -19,6 +18,15 @@ const Navbar = () => {
         <LinkIcons href='#!'>
           <FaUserCircle />
         </LinkIcons>
+        <Flag
+          onClick={() => i18next.changeLanguage('fr')}
+          src='france.png'
+        ></Flag>
+        <Flag
+          onClick={() => i18next.changeLanguage('en')}
+          src='england.png'
+        ></Flag>
+        <Slogan>{t('slogan')}</Slogan>
       </DivLinks>
     </NavBar>
   )
@@ -32,6 +40,7 @@ const NavBar = styled.div`
 `
 const Logo = styled.img`
   height: 100%;
+  margin-left: 10px;
 `
 const DivLinks = styled.div`
   display: flex;

@@ -1,22 +1,64 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-const Login = () => {
+import allTheActions from '../../actions'
+
+const Login = ({ submit }) => {
+  const [form, setForm] = useState({
+    username: '',
+    password: '',
+    isError: false,
+    isErrorMessage: ''
+  })
   return (
-    <LoginDiv>
-      <h3>Connexion</h3>
+    <FormLogin onSubmit={e => submit(e, form)}>
+      <h1>Connexion</h1>
       <LoginInputDiv>
-        <LoginInput placeholder='email'></LoginInput>
+        <LoginInput
+          placeholder="Votre nom d'utilisateur"
+          name='username'
+          onChange={e => setForm({ ...form, username: e.target.value })}
+          type='text'
+          onBlur={() =>
+            form.username.length < 5
+              ? setForm({
+                  ...form,
+                  isError: true,
+                  isErrorMessage: 'Username invalide'
+                })
+              : setForm({ ...form, isError: false })
+          }
+        ></LoginInput>
       </LoginInputDiv>
       <LoginInputDiv>
-        <LoginInput placeholder='password'></LoginInput>
+        <LoginInput
+          name='password'
+          placeholder='Votre mot de passe'
+          onChange={e => setForm({ ...form, password: e.target.value })}
+          type='password'
+          onBlur={() =>
+            form.password.length < 8
+              ? setForm({
+                  ...form,
+                  isError: true,
+                  isErrorMessage: 'Mot de passe invalide'
+                })
+              : setForm({ ...form, isError: false })
+          }
+        ></LoginInput>
       </LoginInputDiv>
       <LoginInputDiv>
-        <LoginButton>Valider</LoginButton>
+        <LoginButton disabled={form.isError} type='submit'>
+          Valider
+        </LoginButton>
       </LoginInputDiv>
-    </LoginDiv>
+    </FormLogin>
   )
 }
+
+const FormLogin = styled.form``
 
 const LoginDiv = styled.div`
   display: flex;
@@ -60,4 +102,10 @@ const LoginButton = styled.button`
   background-color: #008ad499;
   color: #ffffff;
 `
-export default Login
+const mapDispatchToProps = () => dispatch => ({
+  actions: {
+    user: bindActionCreators(allTheActions.user, dispatch)
+  }
+})
+
+export default connect(null, mapDispatchToProps)(Login)
