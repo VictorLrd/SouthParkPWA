@@ -18,6 +18,7 @@ import Pronos from '../screens/prono'
 // import Profil from '../screens/profil'
 import LoginScreen from '../screens/loginScreen'
 import registerScreen from '../screens/registerScreen'
+import groupScores from '../screens/groupScores'
 
 const Routes = () => {
   return (
@@ -36,7 +37,7 @@ const Routes = () => {
           exact
         />
         <PrivateRoute component={MatchRedux} path='/' exact />
-        <PrivateRoute component={Characters} path='/characters' exact />
+        <PrivateRoute component={groupScores} path='/group-scores' exact />
 
         {/* <Route exact path='/' component={MatchRedux}></Route> */}
         {/* <Route exact path='/login' component={LoginScreen}></Route> */}

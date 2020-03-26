@@ -1,9 +1,11 @@
 import { DISPATCH_LOGIN } from '../actions/user'
 import { DISPATCH_REGISTER } from '../actions/user'
 import { DISPATCH_LOGOUT } from '../actions/user'
+import { DISPATCH_GROUP } from '../actions/user'
 
 const initialState = {
-  user: {}
+  user: {},
+  classment: []
 }
 
 export default (state = initialState, action) => {
@@ -22,6 +24,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: {}
+      }
+    case DISPATCH_GROUP:
+      return {
+        ...state,
+        classment: action.payload
       }
     default:
       return state

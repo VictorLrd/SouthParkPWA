@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import MatchFinishedCard from '../match-finished-card'
 import MatchPronoCard from '../match-prono-card'
 
-const MatchList = ({ matchs }) => {
+const MatchList = ({ matchs, save }) => {
   const [journee, setJournee] = useState('Round 1')
   const journees = [
     'Round 1',
@@ -70,6 +70,13 @@ const MatchList = ({ matchs }) => {
                 )
               )}
           </ContainerMatch>
+          {matchs.filter(m => m.journee === journee && !m.isFinished).length ? (
+            <DivSaveButton>
+              <SaveButton onClick={save}>Sauvegarder mes matchs</SaveButton>
+            </DivSaveButton>
+          ) : (
+            ''
+          )}
         </ContainerInfo>
       </Container>
     </SectionMain>
@@ -119,6 +126,24 @@ const Container = styled.div`
 `
 const SectionMain = styled.body`
   /* background-color:#134886; */
+`
+
+const DivSaveButton = styled.div`
+  justify-content: center;
+  align-items: center;
+  display: flex;
+`
+
+const SaveButton = styled.button`
+  width: 50%;
+  height: 40px;
+  font-size: 1em;
+  border-radius: 5px;
+  border-style: none;
+  border: 0.5px solid #c6c2c2;
+  padding: 0px 1em;
+  background-color: #008ad499;
+  color: #ffffff;
 `
 
 export default MatchList

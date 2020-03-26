@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { FaPowerOff, FaUserCircle } from 'react-icons/fa'
+import { FaTrophy, FaUserCircle } from 'react-icons/fa'
 import i18next from 'i18next'
 import { withTranslation } from 'react-i18next'
 import Logout from '../logout'
@@ -12,8 +12,11 @@ const Navbar = ({ t }) => {
         <Logo src='logo.png'></Logo>
       </a>
       <DivLinks>
-        <LinkIcons href='#!'>
+        <LinkIcons>
           <Logout />
+        </LinkIcons>
+        <LinkIcons href='/group-scores'>
+          <FaTrophy />
         </LinkIcons>
         <LinkIcons href='#!'>
           <FaUserCircle />

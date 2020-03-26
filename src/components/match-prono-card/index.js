@@ -10,8 +10,19 @@ const MatchPronoCard = ({ match }) => {
         <ContainerInfoTeamDom>{match.dom}</ContainerInfoTeamDom>
         <LogoDom src={match.logoDom}></LogoDom>{' '}
         <ContainerScore>
-          <ScoreDomicile defaultValue=' ? ' />{' '}
-          <ScoreExterieur defaultValue=' ? ' />
+          <ScoreDomicile
+            value={match.scoreDomUser}
+            onChange={e => (match.scoreDomUser = e.target.value)}
+            defaultValue='?'
+          />{' '}
+          <ScoreExterieur
+            value={match.scoreExtUser}
+            onChange={e =>
+              (match.scoreExtUser = e.target.value) &&
+              console.log(e.target.value)
+            }
+            defaultValue='?'
+          />
         </ContainerScore>{' '}
         <LogoExt src={match.logoExt}></LogoExt>{' '}
         <ContainerInfoTeamExt>{match.ext}</ContainerInfoTeamExt>{' '}
