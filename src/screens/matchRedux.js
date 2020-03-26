@@ -6,11 +6,17 @@ import allTheActions from '../actions'
 import MatchList from '../components/match-list'
 
 function MatchRedux(props) {
-  console.log(props)
   useEffect(() => {
     props.actions.match.matchCall()
   }, [])
-  return <MatchList matchs={props.matchState.match} />
+  const save = matchs => {
+    props.actions.match.saveMatchsCall(props.matchState.match)
+  }
+  return props.matchState.match ? (
+    <MatchList matchs={props.matchState.match} save={save} />
+  ) : (
+    ''
+  )
 }
 
 const mapStateToProps = state => ({

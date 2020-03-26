@@ -14,10 +14,11 @@ const multerStorage = multer({
     fileSize: 2 * 1024 * 1024 // Limité à 2 Mo
   }
 })
-app.use(bodyParser.json())
+
+app.use(bodyParser.json({ limit: '50mb', extended: true }))
 
 //support parsing of application/x-www-form-urlencoded post data
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(multerStorage.single('file'))
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -43,7 +44,9 @@ var userSchema = mongoose.Schema({
   username: String,
   email: String,
   password: String,
-  favoriteTeam: String
+  favoriteTeam: String,
+  matchs: Array,
+  totalPoint: Number
 })
 
 var User = mongoose.model('User', userSchema)
@@ -70,23 +73,44 @@ var matchSchema = mongoose.Schema({
   coteNull: Number,
   journee: String,
   date: Date,
-  isFinished: Boolean
+  isFinished: Boolean,
+  point: Number
 })
 
 var Match = mongoose.model('Match', matchSchema)
 
-app.route('/match').get(function(req, res) {
-  Match.find(function(err, matchs) {
-    if (err) {
-      res.send(err)
+app
+  .route('/match/:userId')
+  .get(async function(req, res) {
+    console.log(req.params.userId)
+    if (req.params && req.params.userId) {
+      const matchs = await User.findById(req.params.userId)
+        .select('matchs')
+        .exec()
+      res.send(matchs)
+    } else {
+      res.send("Pas d'utilisateur")
     }
-    res.json(matchs)
   })
-})
+  .post(async function(req, res) {
+    if (req.params && req.params.userId && req.body.matchs) {
+      await User.updateOne(
+        { _id: req.params.userId },
+        {
+          matchs: req.body.matchs
+        }
+      ).exec()
+      const matchsUpdate = await User.findById(req.params.userId)
+        .select('matchs')
+        .exec()
+      res.send({ matchs: matchsUpdate })
+    } else {
+      res.send("Pas d'utilisateur")
+    }
+  })
 
 app.route('/register').post(async function(req, res, next) {
   const bcrypt = require('bcrypt')
-  console.log('group', req.body)
   if (
     req.body &&
     req.body.username &&
@@ -98,6 +122,7 @@ app.route('/register').post(async function(req, res, next) {
     user.username = req.body.username
     user.email = req.body.email
     user.favoriteTeam = req.body.favoriteTeam
+    user.totalPoint = 0
     const hash = await bcrypt.hash(req.body.password, 10)
     user.password = hash
     let group = null
@@ -105,7 +130,6 @@ app.route('/register').post(async function(req, res, next) {
       group = await Group.findOne({ code: req.body.group })
         .select('name')
         .exec()
-      console.log('group', group)
       if (!group) {
         return next({
           status: 404,
@@ -114,8 +138,45 @@ app.route('/register').post(async function(req, res, next) {
       }
       user._group = group._id
     }
-    user.save()
-    res.send({ user: user._id })
+    const matchs = []
+    await axios
+      .get(
+        'https://apiv2.apifootball.com/?action=get_events&from=2019-08-01&to=2020-06-30&league_id=176&APIkey=d84b7147d44deeb606597c8f4b3c07a5d9447d17f6d1bf9040928aa09d7aa2b5'
+      )
+      .then(response => {
+        response.data.forEach(async m => {
+          const match = {}
+          match.idApi = m.match_id
+          match.dom = m.match_hometeam_name
+          match.scoreFinalHom = m.match_hometeam_score
+          match.logoDom = m.team_home_badge
+          match.scoreDomUser = null
+          match.coteDom = 10
+          match.ext = m.match_awayteam_name
+          match.logoExt = m.team_away_badge
+          match.scoreFinalExt = m.match_awayteam_score
+          match.scoreExtUser = null
+          match.coteExt = 15
+          match.coteNull = 5
+          match.journee = m.match_round
+          match.date = new Date()
+          match.isFinished = m.match_status === 'Finished'
+          match.point = -1
+          matchs.push(match)
+        })
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+      .then(function() {
+        user.matchs = matchs
+        user.save()
+        let users = group._users && group._users.length ? group._users : []
+        users.push(String(user._id))
+        group._users = users
+        group.save()
+        res.send({ user: user._id })
+      })
   } else {
     return next({
       status: 404,
@@ -211,6 +272,26 @@ app
     }
   })
 
+app.route('/groupScore/:userId').get(async function(req, res) {
+  if (req.params && req.params.userId) {
+    const user = await User.findById(req.params.userId)
+      .select('_group')
+      .exec()
+    if (user && user._group) {
+      const usersClassment = await Group.findById(user._group)
+        .select('_users')
+        .populate({
+          path: '_users',
+          select: 'totalPoint username',
+          options: { sort: { totalPoint: -1 } }
+        })
+        .exec()
+      console.log(usersClassment)
+      res.send({ classment: usersClassment._users })
+    }
+  }
+})
+
 app.post('/loadDataMatches', async function(req, res, next) {
   axios
     .get(
@@ -242,6 +323,39 @@ app.post('/loadDataMatches', async function(req, res, next) {
       res.send('Bien enregistré !')
     })
 })
+
+app.get('/calculatePointUser', async function(req, res, next) {
+  calculatePointUser()
+  res.send('ok')
+})
+
+const calculatePointUser = async () => {
+  const users = await User.find()
+    .select('matchs totalPoint')
+    .exec()
+  if (users) {
+    users.forEach(async user => {
+      let totalPointUser = 0
+      await user.matchs.forEach(match => {
+        match.point =
+          match.scoreDomUser == null ||
+          match.scoreExtUser == null ||
+          match.scoreFinalHom == '' ||
+          match.scoreFinalExt == ''
+            ? null
+            : match.scoreFinalHom === match.scoreDomUser &&
+              match.scoreExtUser === match.scoreFinalExt
+            ? 20
+            : match.scoreFinalHom > match.scoreFinalExt
+            ? 10
+            : 15
+        totalPointUser += match.point ? match.point : 0
+      })
+      user.totalPoint = totalPointUser
+      await user.save()
+    })
+  }
+}
 
 app.listen(3456, function() {
   console.log('Example app listening on port 3456!')

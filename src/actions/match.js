@@ -8,12 +8,41 @@ export const dispatchMatch = payload => ({
 })
 
 export const matchCall = () => dispatch => {
-  axios
-    .get('http://51.254.118.15:3456/match')
-    .then(res => {
-      dispatch(dispatchMatch(res.data))
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  console.log('hjkl')
+  if (localStorage.getItem('user')) {
+    console.log('hjkl')
+    axios
+      .get(
+        `http://localhost:3456/match/${JSON.parse(
+          localStorage.getItem('user')
+        )}`
+      )
+      .then(res => {
+        dispatch(dispatchMatch(res.data.matchs))
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+}
+
+export const saveMatchsCall = matchs => dispatch => {
+  if (localStorage.getItem('user')) {
+    axios
+      .post(
+        `http://localhost:3456/match/${JSON.parse(
+          localStorage.getItem('user')
+        )}`,
+        {
+          matchs
+        }
+      )
+      .then(res => {
+        console.log('hjkf', res.data)
+        // dispatch(dispatchMatch(res.data.matchs))
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }

@@ -11,12 +11,38 @@ const MatchFinished = ({ match }) => {
       <ContainerScore>
         {' '}
         <ScoreDetail>
-          {match.scoreDom} - {match.scoreExt}
+          {match.scoreFinalHom} - {match.scoreFinalExt}
         </ScoreDetail>
-        <ScorePronostic> Mon score (3-0) </ScorePronostic>
+        <ScorePronostic>
+          {' '}
+          Mon score ({match.scoreDomUser}-{match.scoreExtUser}){' '}
+        </ScorePronostic>
         <Points>
           {' '}
-          <ScoreColor /> 1 point
+          <ScoreColor
+            color={
+              match.scoreFinalHom === match.scoreDomUser &&
+              match.scoreExtUser === match.scoreFinalExt
+                ? 'green'
+                : 'red'
+            }
+          />{' '}
+          {match.scoreDomUser == null || match.scoreExtUser == null
+            ? 'Pas prono'
+            : match.scoreFinalHom === match.scoreDomUser &&
+              match.scoreExtUser === match.scoreFinalExt &&
+              match.scoreFinalHom === match.scoreDomUser &&
+              match.scoreExtUser === match.scoreFinalExt
+            ? '20 points'
+            : match.scoreFinalHom === match.scoreDomUser &&
+              match.scoreExtUser === match.scoreFinalExt &&
+              match.scoreFinalHom > match.scoreFinalExt
+            ? '10 points'
+            : match.scoreFinalHom === match.scoreDomUser &&
+              match.scoreExtUser === match.scoreFinalExt &&
+              match.scoreFinalHom > match.scoreFinalExt
+            ? '15 points'
+            : '0 point'}
         </Points>
       </ContainerScore>{' '}
       <LogoExt src={match.logoExt}></LogoExt>
@@ -29,7 +55,7 @@ const ScoreColor = styled.p`
   display: flex;
   width: 30px;
   height: 8px;
-  background: green;
+  background: ${props => props.color};
   border-radius: 80px;
 `
 
