@@ -14,12 +14,10 @@ export const dispatchMatchStat = payload => ({
 })
 
 export const matchCall = () => dispatch => {
-  console.log('hjkl')
   if (localStorage.getItem('user')) {
-    console.log('hjkl')
     axios
       .get(
-        `http://localhost:3456/match/${JSON.parse(
+        `http://51.254.118.15:3456/match/${JSON.parse(
           localStorage.getItem('user')
         )}`
       )
@@ -40,7 +38,7 @@ export const saveMatchsCall = matchs => dispatch => {
   if (localStorage.getItem('user')) {
     axios
       .post(
-        `http://localhost:3456/match/${JSON.parse(
+        `http://51.254.118.15:3456/match/${JSON.parse(
           localStorage.getItem('user')
         )}`,
         {
@@ -60,12 +58,11 @@ export const matchStatCall = matchId => dispatch => {
   if (localStorage.getItem('user') && matchId) {
     axios
       .get(
-        `http://localhost:3456/matchStat/${matchId}/${JSON.parse(
+        `http://51.254.118.15:3456/matchStat/${matchId}/${JSON.parse(
           localStorage.getItem('user')
         )}`
       )
       .then(res => {
-        console.log('hjkf', res.data)
         dispatch(dispatchMatchStat(res.data))
       })
       .catch(err => {

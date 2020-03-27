@@ -52,7 +52,7 @@ export const registerCall = ({
   email
 }) => dispatch => {
   axios
-    .post('http://localhost:3456/register', {
+    .post('http://51.254.118.15:3456/register', {
       username,
       password,
       group,
@@ -72,7 +72,7 @@ export const groupScoreCall = () => dispatch => {
   if (localStorage.getItem('user')) {
     axios
       .get(
-        `http://localhost:3456/groupScore/${JSON.parse(
+        `http://51.254.118.15:3456/groupScore/${JSON.parse(
           localStorage.getItem('user')
         )}`
       )
@@ -98,7 +98,7 @@ export const userInfoCall = () => dispatch => {
   if (localStorage.getItem('user')) {
     axios
       .get(
-        `http://localhost:3456/userInfo/${JSON.parse(
+        `http://51.254.118.15:3456/userInfo/${JSON.parse(
           localStorage.getItem('user')
         )}`
       )
@@ -106,16 +106,18 @@ export const userInfoCall = () => dispatch => {
         res => {
           console.log(res.data)
           dispatch(dispatchUserInfo(res.data))
-          // localStorage.setItem('userInfo', JSON.stringify(res.data.classment))
+          localStorage.setItem('userInfo', JSON.stringify(res.data))
         },
         err => {
           console.log('err', err.data)
         }
       )
       .catch(err => {
-        // if (localStorage.getItem('classment')) {
-        //   // dispatch(dispatchGroup(JSON.parse(localStorage.getItem('classment'))))
-        // }
+        if (localStorage.getItem('userInfo')) {
+          dispatch(
+            dispatchUserInfo(JSON.parse(localStorage.getItem('userInfo')))
+          )
+        }
         console.log('hjkjskfd', err.message)
       })
   }
