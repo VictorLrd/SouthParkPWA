@@ -19,6 +19,7 @@ import Profil from '../screens/profil'
 import LoginScreen from '../screens/loginScreen'
 import registerScreen from '../screens/registerScreen'
 import groupScores from '../screens/groupScores'
+import Profil from '../screens/profil'
 
 const Routes = () => {
   return (

@@ -2,6 +2,14 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import MatchFinishedCard from '../match-finished-card'
 import MatchPronoCard from '../match-prono-card'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
+import allTheActions from '../../actions'
+
+import { Link } from 'react-router-dom'
+
+import { themeLight, themeDark } from '../../config/theme'
 
 const MatchList = ({ matchs, save }) => {
   const [journee, setJournee] = useState('Round 1')
@@ -115,14 +123,14 @@ const ContainerInfo = styled.div`
   background-color: 288aef;
   margin-top: 3%;
   margin-bottom: 5%;
-  border: 5px solid black;
+  border: 5px solid ${props => props.theme.secondary};
 `
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #134886;
+  background-color: ${props => props.theme.primary};
 `
 const SectionMain = styled.body`
   /* background-color:#134886; */
@@ -146,4 +154,10 @@ const SaveButton = styled.button`
   color: #ffffff;
 `
 
-export default MatchList
+const mapDispatchToProps = () => dispatch => ({
+  actions: {
+    theme: bindActionCreators(allTheActions.theme, dispatch)
+  }
+})
+
+export default connect(null, mapDispatchToProps)(MatchList)
