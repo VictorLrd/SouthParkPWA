@@ -75,6 +75,10 @@ const DivSlogan = styled.div`
   width: 100%;
 `
 
-const Slogan = styled.span``
+const Slogan = styled.span`
+  @media screen and (max-width: 700px) {
+    display: none !important;
+  }
+`
 
 export default withTranslation()(Navbar)
