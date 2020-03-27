@@ -29,7 +29,7 @@ var mongoose = require('mongoose')
 var urlmongo =
   'mongodb+srv://pwa:Sr12xb2KMYQZA3VM@cluster0-d73ir.mongodb.net/southparkpwa?retryWrites=true&w=majority'
 
-mongoose.connect(urlmongo)
+mongoose.connect(urlmongo, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const Schema = require('mongoose')
 

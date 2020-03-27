@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import Prono from '../components/match-prono'
+import Match from '../components/match-finished'
 
 const Profil = () => {
   return (
@@ -16,18 +18,22 @@ const Profil = () => {
       </Header>
       <TabsButtons>
         <DivTabButton>
-          <TabButton>Tab 1</TabButton>
+          <TabButton>Pronostic</TabButton>
         </DivTabButton>
         <DivTabButton>
-          <TabButton>Tab 2</TabButton>
+          <TabButton>Résultats</TabButton>
         </DivTabButton>
         <DivTabButton>
           <TabButton>Tab 3</TabButton>
         </DivTabButton>
       </TabsButtons>
       <Tabs>
-        <TabContainer></TabContainer>
-        <TabContainer></TabContainer>
+        <TabContainer>
+          <Prono></Prono>
+        </TabContainer>
+        <TabContainer>
+          <Match></Match>
+        </TabContainer>
         <TabContainer></TabContainer>
       </Tabs>
     </Container>
@@ -36,12 +42,14 @@ const Profil = () => {
 
 const Container = styled.div`
   display: flex;
-  padding: 0 5rem;
+  padding: 0 2%;
   flex-direction: column;
 `
 const Tabs = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  background-color: #134886;
 `
 const TabsButtons = styled.div`
   margin-top: 5em;

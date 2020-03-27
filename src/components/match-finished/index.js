@@ -5,145 +5,151 @@ import logoExt from '../../assets/ext.png'
 
 const MatchFinished = () => {
   return (
-    <SectionMain>
-      <Container>
-        <ContainerInfo>
-          <ContainerJournee>
-            <ContainerJourneeTitre>32ème journée</ContainerJourneeTitre>
-          </ContainerJournee>
-          <ContainerMatch>
-            <ContainerMatchInfo>
-              RB Leipzig<LogoDom src={logoDom}></LogoDom>{' '}
-              <ContainerScore>
-                {' '}
-                <ScoreDetail>2 - 2</ScoreDetail>
-                <ScorePronostic> Mon score (3-0) </ScorePronostic>
-                <Points>
-                  {' '}
-                  <ScoreColor /> 1 point
-                </Points>
-              </ContainerScore>{' '}
-              <LogoExt src={logoExt}></LogoExt> Tottenham{' '}
-            </ContainerMatchInfo>
-          </ContainerMatch>
-        </ContainerInfo>
-      </Container>
-    </SectionMain>
+    <Container>
+      <ContainerJournee>
+        <ContainerJourneeTitre>32ème journée</ContainerJourneeTitre>
+      </ContainerJournee>
+      <ContainerMatch>
+        <DateMatch>01/08 à 20:00</DateMatch>
+        <ContainerMatchInfo>
+          <ContainerTeam dom='true'>
+            <ContainerInfoTeam>RB Leipzig</ContainerInfoTeam>
+            <LogoEquipe src={logoDom}></LogoEquipe>
+          </ContainerTeam>
+          <ContainerScore>
+            <DetailsScores>
+              <Scores>
+                <Details>2 - 2</Details>
+                <MonScore>Mon score (3-0)</MonScore>
+              </Scores>
+              <Points>
+                <ColorCode></ColorCode>
+                <Details>1 point</Details>
+              </Points>
+            </DetailsScores>
+          </ContainerScore>
+          <ContainerTeam dom='false'>
+            <ContainerInfoTeam>Tottenham</ContainerInfoTeam>
+            <LogoEquipe src={logoExt}></LogoEquipe>
+          </ContainerTeam>
+        </ContainerMatchInfo>
+      </ContainerMatch>
+    </Container>
   )
 }
 
-const ScoreColor = styled.p`
-  display: flex;
-  width: 30px;
-  height: 8px;
-  background: green;
-  border-radius: 80px;
-`
-
-const Points = styled.div`
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const ScorePronostic = styled.p`
-  margin-bottom: 2px;
-  display: flex;
-  justify-content: center;
-  font-size: 8px;
-  color: white;
-`
-
-const ScoreDetail = styled.p`
-  margin: auto;
-  font-size: 10px;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  color: white;
-`
-
-const ContainerScore = styled.div`
-  border: 2px solid black;
-  width: 140px;
-  height: 70px;
-  background-color: #1778e9;
-  margin-left: 10px;
-  margin-right: 12px;
-  border-radius: 5px;
-  display: grid;
-`
-
-const LogoExt = styled.img`
-  width: 40px;
-  height: 40px;
-  margin-right: 6px;
-  margin-top: 5px;
-`
-
-const LogoDom = styled.img`
-  width: 48px;
-  margin-left: 6px;
-  margin-bottom: 8px;
-  margin-right: 5px;
-  height: 40px;
-`
-
-const ContainerMatchInfo = styled.p`
-  display: flex;
-  flex-direction: row;
-  margin-top: 55px;
-  font-size: 14px;
-  color: white;
-  font-weight: bold;
-`
-
-const ContainerMatch = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
-  margin-left: 6px;
-  margin-right: 6px;
-  height: -webkit-fill-available;
+  justify-content: center;
+  align-items: center;
+  background-color: #134886;
+  width: 100%;
 `
 
+const ContainerJournee = styled.div`
+  display: flex;
+  background-color: #288aef;
+  border-radius: 10px;
+  padding: 1% 1%;
+  margin-top: 1%;
+`
 const ContainerJourneeTitre = styled.p`
   display: flex;
   margin: auto;
   color: white;
   font-weight: bold;
+  font-size: 2em;
 `
-
-const ContainerJournee = styled.div`
-  border: 2px solid #288aef;
+const ContainerMatchInfo = styled.div`
   display: flex;
-  width: 100%;
-  height: 60px;
-  background-color: #288aef;
-  border-radius: 10px;
+  flex-direction: row;
 `
 
-const ContainerInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 375px;
-  height: 500px;
-  background-color: 288aef;
-  margin-top: 10%;
-  margin-bottom: 10%;
-  border: 5px solid black;
-`
-
-const Container = styled.div`
+const DateMatch = styled.span`
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: #134886;
+  margin-top: 1em;
+  font-weight: bold;
+  color: white;
+  font-size: 1em;
 `
-const SectionMain = styled.body`
-  /* background-color:#134886; */
+
+const ContainerScore = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`
+
+const DetailsScores = styled.div`
+  border-radius: 5px;
+  background-color: #288aef;
+  border: 2px solid grey;
+`
+
+const Scores = styled.div`
+  border: 2px solid grey;
+  color: ${props => (props.dom == 'true' ? '#eb8400' : 'white')};
+  background-color: ${props => (props.dom == 'true' ? 'gold' : '#0275ea')};
+  font-weight: bold;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-content: space-around;
+  padding: 5px;
+`
+const Points = styled.div`
+  border: 1px solid grey;
+  color: ${props => (props.dom == 'true' ? '#eb8400' : 'white')};
+  background-color: ${props => (props.dom == 'true' ? 'gold' : '#0275ea')};
+  font-weight: bold;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  padding: 5px;
+`
+const ColorCode = styled.div`
+  height: 1em;
+  width: 50%;
+  background-color: ${props => props.color || 'red'};
+  border-radius: 5px;
+`
+const Details = styled.span`
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+`
+const MonScore = styled.span`
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+`
+const LogoEquipe = styled.img`
+  border-radius: 15px;
+  width: 70%;
+  height: 70%;
+`
+
+const ContainerInfoTeam = styled.p`
+  display: flex;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+`
+
+const ContainerMatch = styled.div``
+
+const ContainerTeam = styled.div`
+  display: flex;
+  flex-direction: ${props => (props.dom == 'true' ? 'row' : 'row-reverse')};
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
 `
 
 export default MatchFinished

@@ -11,6 +11,9 @@ const Navbar = ({ t }) => {
       <a href='/'>
         <Logo src='logo.png'></Logo>
       </a>
+      <DivSlogan>
+        <Slogan>{t('slogan')}</Slogan>
+      </DivSlogan>
       <DivLinks>
         <LinkIcons>
           <Logout />
@@ -21,15 +24,18 @@ const Navbar = ({ t }) => {
         <LinkIcons href='#!'>
           <FaUserCircle />
         </LinkIcons>
-        <Flag
-          onClick={() => i18next.changeLanguage('fr')}
-          src='france.png'
-        ></Flag>
-        <Flag
-          onClick={() => i18next.changeLanguage('en')}
-          src='england.png'
-        ></Flag>
-        <Slogan>{t('slogan')}</Slogan>
+        <LinkIcons href='#!'>
+          <Flag
+            onClick={() => i18next.changeLanguage('fr')}
+            src='france.png'
+          ></Flag>
+        </LinkIcons>
+        <LinkIcons href='#!'>
+          <Flag
+            onClick={() => i18next.changeLanguage('en')}
+            src='england.png'
+          ></Flag>
+        </LinkIcons>
       </DivLinks>
     </NavBar>
   )
@@ -60,10 +66,15 @@ const LinkIcons = styled.a`
 `
 
 const Flag = styled.img`
-  margin-right: 5px;
+  width: 30px;
 `
-const Slogan = styled.p`
-  margin-right: 50px;
+const DivSlogan = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `
+
+const Slogan = styled.span``
 
 export default withTranslation()(Navbar)
