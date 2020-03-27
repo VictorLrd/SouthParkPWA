@@ -24,7 +24,8 @@ const registerPushListener = pushNotification =>
       data.firebaseMessaging.payload.notification &&
       data.firebaseMessaging.payload.notification.body
     ) {
-      pushNotification(data.firebaseMessaging.payload.notification.body)
+      alert(data.firebaseMessaging.payload.notification.body)
+      // pushNotification(data.firebaseMessaging.payload.notification.body)
     }
   })
 
@@ -42,13 +43,6 @@ function App({ token, notifications }) {
   return (
     <Provider store={store}>
       <Navbar></Navbar>
-      {/* <div>
-        Current token is: <p>{token}</p>
-      </div>
-      <ul>
-        Notifications List:
-        {notifications.map(renderNotification)}
-      </ul> */}
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={currentTheme}>
           <Routes></Routes>
@@ -77,6 +71,7 @@ export default compose(
         .then(async function() {
           const token = await messaging.getToken()
           setToken(token)
+          console.log('Token Firebase', token)
         })
         .catch(function(err) {
           console.log('Unable to get permission to notify.', err)

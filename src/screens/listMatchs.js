@@ -9,8 +9,7 @@ import MatchList from '../components/match-list'
 
 import { themeLight, themeDark } from '../config/theme'
 
-const MatchRedux = props => {
-  console.log('props', props)
+const ListMatchs = props => {
   useEffect(() => {
     props.actions.match.matchCall()
   }, [])
@@ -19,12 +18,12 @@ const MatchRedux = props => {
   }
   return props.matchState.match ? (
     <Container>
-      <button onClick={() => props.actions.theme.changeTheme(themeLight)}>
+      <ButtonTheme onClick={() => props.actions.theme.changeTheme(themeLight)}>
         Theme Light
-      </button>
-      <button onClick={() => props.actions.theme.changeTheme(themeDark)}>
+      </ButtonTheme>
+      <ButtonTheme onClick={() => props.actions.theme.changeTheme(themeDark)}>
         Theme Dark
-      </button>
+      </ButtonTheme>
       <MatchList matchs={props.matchState.match} save={save} />
     </Container>
   ) : (
@@ -34,6 +33,10 @@ const MatchRedux = props => {
 
 const Container = styled.div`
   background-color: ${props => props.theme.primary};
+`
+
+const ButtonTheme = styled.div`
+  color: white;
 `
 
 const mapStateToProps = state => ({
@@ -47,4 +50,4 @@ const mapDispatchToProps = () => dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MatchRedux)
+export default connect(mapStateToProps, mapDispatchToProps)(ListMatchs)

@@ -21,16 +21,16 @@ const Navbar = ({ t }) => {
         <LinkIcons href='/group-scores'>
           <FaTrophy />
         </LinkIcons>
-        <LinkIcons href='#!'>
+        <LinkIcons href='/profile'>
           <FaUserCircle />
         </LinkIcons>
-        <LinkIcons href='#!'>
+        <LinkIcons>
           <Flag
             onClick={() => i18next.changeLanguage('fr')}
             src='france.png'
           ></Flag>
         </LinkIcons>
-        <LinkIcons href='#!'>
+        <LinkIcons>
           <Flag
             onClick={() => i18next.changeLanguage('en')}
             src='england.png'

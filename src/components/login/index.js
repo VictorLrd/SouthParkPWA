@@ -53,12 +53,17 @@ const Login = ({ submit }) => {
         <LoginButton disabled={form.isError} type='submit'>
           Valider
         </LoginButton>
+        <RegisterButton>
+          <RegisterLink href='/register'>S'enregistrer</RegisterLink>
+        </RegisterButton>
       </LoginInputDiv>
     </FormLogin>
   )
 }
 
-const FormLogin = styled.form``
+const FormLogin = styled.form`
+  width: 12%;
+`
 
 const LoginDiv = styled.div`
   display: flex;
@@ -101,6 +106,23 @@ const LoginButton = styled.button`
   padding: 0px 1em;
   background-color: #008ad499;
   color: #ffffff;
+`
+
+const RegisterButton = styled.button`
+  width: 50%;
+  height: 40px;
+  font-size: 1em;
+  border-radius: 5px;
+  border-style: none;
+  border: 0.5px solid #c6c2c2;
+  padding: 0px 1em;
+  background-color: #008ad499;
+  color: #ffffff;
+`
+
+const RegisterLink = styled.a`
+  text-decoration: none;
+  color: white;
 `
 const mapDispatchToProps = () => dispatch => ({
   actions: {

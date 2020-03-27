@@ -55,7 +55,7 @@ var groupSchema = mongoose.Schema({
   _users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   name: String,
   code: String,
-  mise: String
+  mise: Number
 })
 
 var Group = mongoose.model('Group', groupSchema)
@@ -82,7 +82,6 @@ var Match = mongoose.model('Match', matchSchema)
 app
   .route('/match/:userId')
   .get(async function(req, res) {
-    console.log(req.params.userId)
     if (req.params && req.params.userId) {
       const matchs = await User.findById(req.params.userId)
         .select('matchs')
@@ -131,10 +130,11 @@ app.route('/register').post(async function(req, res, next) {
         .select('name')
         .exec()
       if (!group) {
-        return next({
-          status: 404,
-          message: "Il n'y a pas de groupe qui correspond à ce code"
-        })
+        group = new Group()
+        group.name = `${user.username} Group`
+        group.code = `${user.username}`
+        group.mise = 0
+        group.save()
       }
       user._group = group._id
     }
@@ -322,6 +322,45 @@ app.post('/loadDataMatches', async function(req, res, next) {
     .then(function() {
       res.send('Bien enregistré !')
     })
+})
+
+app.get('/matchStat/:matchId/:userId', async function(req, res, next) {
+  if (req.params && req.params.userId && req.params.matchId) {
+    console.log('matchId', req.params.matchId)
+    axios
+      .get(
+        `https://apiv2.apifootball.com/?action=get_events&from=2019-08-01&to=2020-06-30&league_id=176&match_id=${req.params.matchId}&APIkey=d84b7147d44deeb606597c8f4b3c07a5d9447d17f6d1bf9040928aa09d7aa2b5`
+      )
+      .then(response => {
+        if (response && response.data && response.data.length) {
+          res.send(response.data[0])
+        } else {
+          res.send('error')
+        }
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+  } else {
+    res.send('Error')
+  }
+})
+
+app.get('/userInfo/:userId', async function(req, res, next) {
+  if (req.params && req.params.userId) {
+    console.log('params', req.params.userId)
+    const user = await User.findById(req.params.userId)
+      .select('username email favoriteTeam _group totalPoint')
+      .populate({
+        path: '_group',
+        select: 'name code'
+      })
+      .exec()
+    console.log(user)
+    res.send(user)
+  } else {
+    res.send('ok')
+  }
 })
 
 app.get('/calculatePointUser', async function(req, res, next) {

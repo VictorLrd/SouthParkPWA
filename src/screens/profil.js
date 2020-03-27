@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import Prono from '../components/match-prono'
-import Match from '../components/match-finished'
 
-const Profil = () => {
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import allTheActions from '../actions'
+
+const Profil = props => {
+  useEffect(() => {
+    props.actions.user.userInfoCall()
+    console.log(props.userState)
+  }, [])
   return (
     <Container>
       <Header>
@@ -14,32 +20,27 @@ const Profil = () => {
             ></Avatar>
           </ContainerInfo>
           <ContainerInfo>
-            <Username>Akon_victed</Username>
-            <Email>akon@gmail.com</Email>
-            <MyTeam>Tottenham</MyTeam>
+            <Username>{props.userState.userInfo.username}</Username>
+            <Email>{props.userState.userInfo.email}</Email>
+            <MyTeam>{props.userState.userInfo.favoriteTeam}</MyTeam>
+            <MyGroup>
+              <strong>
+                <u>Nom du groupe :</u>
+              </strong>{' '}
+              {props.userState.userInfo._group.name}
+            </MyGroup>
+            <MyGroupCode>
+              <strong>
+                <u>Code du groupe :</u>
+              </strong>{' '}
+              {props.userState.userInfo._group.code}
+            </MyGroupCode>
           </ContainerInfo>
         </Userprofil>
         <UserPoints>
-          <Points>10 points</Points>
+          <Points>{props.userState.userInfo.totalPoint} points</Points>
         </UserPoints>
       </Header>
-      <TabsButtons>
-        <DivTabButton>
-          <TabButton>Pronostic</TabButton>
-        </DivTabButton>
-        <DivTabButton>
-          <TabButton>Résultats</TabButton>
-        </DivTabButton>
-      </TabsButtons>
-      <Tabs>
-        <TabContainer>
-          <Prono></Prono>
-        </TabContainer>
-        <TabContainer>
-          <Match></Match>
-        </TabContainer>
-        <TabContainer></TabContainer>
-      </Tabs>
     </Container>
   )
 }
@@ -49,35 +50,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
 `
-const Tabs = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #134886;
-`
-const TabsButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  height: 3em;
-`
-const DivTabButton = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  background-color: #e1e1e1;
-  justify-content: center;
-`
-const TabButton = styled.a`
-  display: block;
-  font-size: 2em;
-  font-weight: bold;
-`
-const TabContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-`
+
 const Header = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -133,9 +106,26 @@ const MyTeam = styled.span`
     font-size: 1em;
 }
 `
+const MyGroup = styled.span`
+  font-size: 1em;
+`
+
+const MyGroupCode = styled.span`
+  font-size: 1em;
+`
 const Points = styled.span`
   font-size: 3em;
   text-al
 `
 
-export default Profil
+const mapStateToProps = state => ({
+  userState: state.user
+})
+
+const mapDispatchToProps = () => dispatch => ({
+  actions: {
+    user: bindActionCreators(allTheActions.user, dispatch)
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profil)

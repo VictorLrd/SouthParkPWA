@@ -72,7 +72,16 @@ const MatchList = ({ matchs, save }) => {
               .filter(m => m.journee === journee)
               .map(m =>
                 m && m.isFinished ? (
-                  <MatchFinishedCard key={m._id} match={m} />
+                  <ContainerFinishMatch>
+                    <ContainerLinkMatch>
+                      <LinkStat href={`/match-stat/${m.idApi}`}>
+                        Stat +
+                      </LinkStat>
+                    </ContainerLinkMatch>
+                    <ContainerFinishMatch>
+                      <MatchFinishedCard key={m._id} match={m} />
+                    </ContainerFinishMatch>
+                  </ContainerFinishMatch>
                 ) : (
                   <MatchPronoCard key={m._id} match={m} />
                 )
@@ -98,6 +107,17 @@ const ContainerMatch = styled.div`
   margin-left: 6px;
   margin-right: 6px;
   height: -webkit-fill-available;
+`
+
+const ContainerFinishMatch = styled.div``
+const ContainerLinkMatch = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const LinkStat = styled.a`
+  text-decoration: none;
+  color: white;
 `
 
 const ContainerJourneeTitre = styled.p`

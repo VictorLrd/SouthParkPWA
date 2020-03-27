@@ -1,7 +1,9 @@
 import { DISPATCH_MATCH } from '../actions/match'
+import { DISPATCH_MATCH_STAT } from '../actions/match'
 
 const initialState = {
-  match: []
+  match: [],
+  matchStat: {}
 }
 
 export default (state = initialState, action) => {
@@ -10,6 +12,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         match: action.payload
+      }
+    case DISPATCH_MATCH_STAT:
+      return {
+        ...state,
+        matchStat: action.payload
       }
     default:
       return state

@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import logoDom from '../../assets/dom.png'
-import logoExt from '../../assets/ext.png'
 
 const MatchPronoCard = ({ match }) => {
   return (
