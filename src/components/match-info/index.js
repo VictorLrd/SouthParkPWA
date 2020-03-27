@@ -1,48 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
-import MatchInfo from '../match-info'
 import logoDom from '../../assets/dom.png'
 import logoExt from '../../assets/ext.png'
 
-const MatchProno = () => {
+const MatchInfo = () => {
   return (
-    <Container>
-      <ContainerJournee>
-        <ContainerJourneeTitre>32ème journée</ContainerJourneeTitre>
-      </ContainerJournee>
-      <ContainerMatch>
-        <DateMatch>01/08 à 20:00</DateMatch>
-        <MatchInfo></MatchInfo>
-      </ContainerMatch>
-    </Container>
+    <ContainerMatch>
+      <DateMatch>01/08 à 20:00</DateMatch>
+      <ContainerMatchInfo>
+        <ContainerTeam dom='true'>
+          <ContainerInfoTeam>RB Leipzig</ContainerInfoTeam>
+          <LogoEquipe src={logoDom}></LogoEquipe>
+        </ContainerTeam>
+        <ContainerScore>
+          <Scores dom='true' placeholder='?' />
+          <Scores dom='false' placeholder='?' />
+        </ContainerScore>
+        <ContainerTeam dom='false'>
+          <ContainerInfoTeam>Tottenham</ContainerInfoTeam>
+          <LogoEquipe src={logoExt}></LogoEquipe>
+        </ContainerTeam>
+      </ContainerMatchInfo>
+    </ContainerMatch>
   )
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #134886;
-  width: 100%;
-`
-
-const ContainerJournee = styled.div`
-  border: 2px solid #288aef;
-  display: flex;
-  max-width: 70%;
-  background-color: #288aef;
-  border-radius: 10px;
-  padding: 1% 1%;
-  margin-top: 1%;
-`
-const ContainerJourneeTitre = styled.p`
-  display: flex;
-  margin: auto;
-  color: white;
-  font-weight: bold;
-  font-size: 2em;
-`
 const ContainerMatchInfo = styled.div`
   display: flex;
   flex-direction: row;
@@ -101,4 +83,4 @@ const ContainerTeam = styled.div`
   width: 100%;
   align-items: center;
 `
-export default MatchProno
+export default MatchInfo

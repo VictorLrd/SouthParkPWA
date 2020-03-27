@@ -42,13 +42,13 @@ function App({ token, notifications }) {
   return (
     <Provider store={store}>
       <Navbar></Navbar>
-      <div>
+      {/* <div>
         Current token is: <p>{token}</p>
       </div>
       <ul>
         Notifications List:
         {notifications.map(renderNotification)}
-      </ul>
+      </ul> */}
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={currentTheme}>
           <Routes></Routes>

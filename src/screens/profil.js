@@ -8,13 +8,20 @@ const Profil = () => {
     <Container>
       <Header>
         <Userprofil>
-          <Avatar
-            src={'https://www.afrik.com/wp-content/uploads/2019/11/Akon.jpg'}
-          ></Avatar>
-          <Username>
-            <Name>Akon_victed</Name>
-          </Username>
+          <ContainerInfo>
+            <Avatar
+              src={'https://www.afrik.com/wp-content/uploads/2019/11/Akon.jpg'}
+            ></Avatar>
+          </ContainerInfo>
+          <ContainerInfo>
+            <Username>Akon_victed</Username>
+            <Email>akon@gmail.com</Email>
+            <MyTeam>Tottenham</MyTeam>
+          </ContainerInfo>
         </Userprofil>
+        <UserPoints>
+          <Points>10 points</Points>
+        </UserPoints>
       </Header>
       <TabsButtons>
         <DivTabButton>
@@ -22,9 +29,6 @@ const Profil = () => {
         </DivTabButton>
         <DivTabButton>
           <TabButton>Résultats</TabButton>
-        </DivTabButton>
-        <DivTabButton>
-          <TabButton>Tab 3</TabButton>
         </DivTabButton>
       </TabsButtons>
       <Tabs>
@@ -42,8 +46,8 @@ const Profil = () => {
 
 const Container = styled.div`
   display: flex;
-  padding: 0 2%;
   flex-direction: column;
+  justify-content: center;
 `
 const Tabs = styled.div`
   display: flex;
@@ -52,7 +56,6 @@ const Tabs = styled.div`
   background-color: #134886;
 `
 const TabsButtons = styled.div`
-  margin-top: 5em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -73,41 +76,66 @@ const TabButton = styled.a`
 `
 const TabContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 `
 const Header = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  width: 100%;
-  height: 10em;
+  justify-content: space-between;
   background-color: #00d46499;
+  padding: 1em;
 `
+
 const Userprofil = styled.div`
   display: flex;
   flex-direction: row;
-  position: absolute;
-  top: 7em;
-  left: 13%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+`
+
+const ContainerInfo = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #ffffff;
+    padding:0 1rem;
+}
+`
+const UserPoints = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+}
 `
 const Avatar = styled.img`
-    width: 10em;
-    height: 10em;
+    max-width: 10em;
+    max-height: 10em;
     border-radius: 5em;
     border:5px solid gray;
 }
 `
-const Username = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 2em;
-    font-weight: bold;
-    font-family: sans-serif;
-    color: #ffffff;
-}
-`
-const Name = styled.span`
+const Username = styled.span`
     font-size: 2em;
 }
+`
+const Email = styled.span`
+    font-size: 1em;
+}
+`
+const MyTeam = styled.span`
+    font-size: 1em;
+}
+`
+const Points = styled.span`
+  font-size: 3em;
+  text-al
 `
 
 export default Profil
